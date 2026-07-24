@@ -7,18 +7,26 @@
 <body>
     <h1>Gestor de tareas</h1>
 
-    <ul>
-        @foreach ($tareas as $tarea)
-            <li>
-                {{ $tarea['titulo'] }}
+    @if ($tasks->isEmpty())
+        <p>No hay tareas registradas.</p>
+    @else
+        <ul>
+            @foreach ($tasks as $task)
+                <li>
+                    {{ $task->title }}
 
-                @if ($tarea['completada'])
-                    — Completada
-                @else
-                    — Pendiente
-                @endif
-            </li>
-        @endforeach
-    </ul>
+                    @if ($task->completed)
+                        — Completada
+                    @else
+                        — Pendiente
+                    @endif
+
+                    @if ($task->due_date)
+                        — Vence: {{ $task->due_date->format('d/m/Y') }}
+                    @endif
+                </li>
+            @endforeach
+        </ul>
+    @endif
 </body>
 </html>
