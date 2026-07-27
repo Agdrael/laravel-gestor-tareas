@@ -11,12 +11,18 @@ Route::get('/saludo', function () {
     return "Yeellow desde laravel";
 });
 
+Route::resource('tareas', TaskController::class)
+    ->parameters([
+        'tareas'=>'task',
+    ])
+    ->names([
+        'index'=>'tasks.index',
+        'create'=>'tasks.create',
+        'store'=>'tasks.store',
+        'show'=>'tasks.show',
+        'edit'=>'tasks.edit',
+        'update'=>'tasks.update',
+        'destroy'=>'tasks.destroy',
+    ]);
 
-Route::get('/tareas',[TaskController::class,'index'])->name('tasks.index');
-Route::post('/tareas',[TaskController::class,'store'])->name('tasks.store');
-Route::get('/tareas/crear',[TaskController::class,'create'])->name('tasks.create');
-Route::get('/tareas/{task}',[TaskController::class,'show',])->name('tasks.show');
-Route::get('/tareas/{task}/editar',[TaskController::class,'edit'])->name('tasks.edit');
-Route::patch('/tareas/{task}',[TaskController::class,'update'])->name('tasks.update');
-Route::delete('/tareas/{task}',[TaskController::class,'destroy'])->name('tasks.destroy');
 
