@@ -26,6 +26,7 @@ class StoreTaskRequest extends FormRequest
             'title'=>['required','string','max:255'],
             'description'=>['nullable','string'],
             'due_date'=>['nullable','date'],
+            'category_id'=>['required','integer','exists:categories,id']
         ];
     }
 
@@ -36,7 +37,8 @@ class StoreTaskRequest extends FormRequest
             'title.string'=>'El titulo debe de ser texto',
             'title.max'=>'El titulo no debe de tener más de 255 caracteres',
             'description.string'=>'La descipcion debe de ser texto',
-            'due_date.date'=>'La fecha límite debe ser una fecha valida'
+            'due_date.date'=>'La fecha límite debe ser una fecha valida',
+            ''
         ];
     }
 

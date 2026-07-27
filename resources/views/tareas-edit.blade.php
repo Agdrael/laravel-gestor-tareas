@@ -48,6 +48,24 @@
             <label for="completed">Completada</label>
         </div>
 
+        <div>
+            <label for="category_id">Categoría</label>
+
+            <select id="category_id" name="category_id">
+                <option value="">Selecciona una categoría</option>
+
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" @selected((string) old('category_id', $task->category_id) === (string) $category->id)>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+
+            @error('category_id')
+                <p>{{ $message }}</p>
+            @enderror
+        </div>
+
         <button type="submit">Actualizar</button>
     </form>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\Category;
 use App\Models\Task;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -21,7 +22,13 @@ class TaskController extends Controller
 
     public function create(): View
     {
-        return view('tareas-create');
+        $categories = Category::query()
+            ->orderBy('name','asc')
+            ->get(['id','name']);
+
+        return view('tareas-create',[
+            'categories'=>$categories
+        ]);
     }
 
     public function store(StoreTaskRequest $request): RedirectResponse
@@ -35,6 +42,8 @@ class TaskController extends Controller
 
     public function show(Task $task): View
     {
+        $task->load('category');
+
         return view('tareas-show', [
             'task' => $task
         ]);
@@ -42,8 +51,13 @@ class TaskController extends Controller
 
     public function edit(Task $task): View
     {
+        $categories = Category::query()
+            ->orderBy('name','asc')
+            ->get(['id','name']);
+
         return view('tareas-edit', [
             'task' => $task,
+            'categories'=>$categories
         ]);
     }
 

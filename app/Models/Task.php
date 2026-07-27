@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Task extends Model
 {
     protected $fillable = [
+        'category_id',
         'title',
         'description',
         'completed',
@@ -20,4 +22,8 @@ class Task extends Model
             'due_date'=>'date',
         ];
     }
+     public function category(): BelongsTo
+     {
+        return $this->belongsTo(Category::class);
+     }
 }

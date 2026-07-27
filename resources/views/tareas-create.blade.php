@@ -35,6 +35,24 @@
             <input id="due_date" name="due_date" type="date" value="{{ old('due_date') }}">
         </div>
 
+        <div>
+            <label for="category_id">Categoría</label>
+
+            <select id="category_id" name="category_id">
+                <option value="">Selecciona una categoría</option>
+
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" @selected((string) old('category_id') === (string) $category->id)>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+
+            @error('category_id')
+                <p>{{ $message }}</p>
+            @enderror
+        </div>
+
         <button type="submit">Guardar</button>
     </form>
 </body>
