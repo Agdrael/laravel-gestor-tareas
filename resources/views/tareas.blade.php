@@ -20,24 +20,31 @@
     @else
         <ul>
             @foreach ($tasks as $task)
-                <li>
-                    {{ $task->title }}
+                <article>
+                    <h2>{{ $task->title }}</h2>
 
-                    @if ($task->completed)
-                        — Completada
-                    @else
-                        — Pendiente
-                    @endif
+                    <p>
+                        Categoría:
+                        {{ $task->category?->name ?? 'Sin categoría' }}
+                    </p>
 
-                    @if ($task->due_date)
-                        — Vence: {{ $task->due_date->format('d/m/Y') }}
-                    @endif
-                    <a href="{{ route('tasks.show', $task) }}">
-                        Ver
-                    </a>
-                    <a href="{{ route('tasks.edit', $task) }}">
-                        Editar
-                    </a>
+                    <p>{{ $task->description }}
+                        @if ($task->completed)
+                            — Completada
+                        @else
+                            — Pendiente
+                        @endif
+                        @if ($task->due_date)
+                            — Vence: {{ $task->due_date->format('d/m/Y') }}
+                        @endif
+                    </p>
+                    <p>
+                        <a href="{{ route('tasks.show', $task) }}">
+                            Ver
+                        </a>
+                        <a href="{{ route('tasks.edit', $task) }}">
+                            Editar
+                        </a>
                     <form method="POST" action="{{ route('tasks.destroy', $task) }}">
                         @csrf
                         @method('DELETE')
@@ -46,8 +53,10 @@
                             Eliminar
                         </button>
                     </form>
+                    </p>
 
-                </li>
+
+                </article>
             @endforeach
         </ul>
     @endif

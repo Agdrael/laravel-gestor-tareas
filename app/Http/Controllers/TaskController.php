@@ -13,7 +13,10 @@ class TaskController extends Controller
 {
     public function index(): View
     {
-        $tasks = Task::latest()->get();
+        $tasks = Task::query()
+            ->with('category')
+            ->latest()
+            ->get();
 
         return view('tareas', [
             'tasks' => $tasks,
